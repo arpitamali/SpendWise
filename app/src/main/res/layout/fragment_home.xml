@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <!-- Scroll Content -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_marginTop="40dp">
+
+            <!-- Header -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Welcome 👋"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
+                    android:layout_marginTop="35dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Track your expenses smartly"
+                    android:textSize="15sp"
+                    android:textStyle="italic"
+                    android:textColor="#666666"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+            <!-- Balance Card -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#8B7CF6"
+                android:padding="25dp"
+                android:layout_marginTop="30dp">
+
+                <!-- Balance Label -->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Available Balance"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"/>
+
+                <!-- Balance Amount -->
+
+                <TextView
+                    android:id="@+id/tvBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹0"
+                    android:textColor="@android:color/white"
+                    android:textSize="42sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="18dp"/>
+
+                <!-- Balance Buttons -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="22dp">
+
+                    <!-- Add Balance -->
+
+                    <Button
+                        android:id="@+id/btnAddBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="＋ Add"
+                        android:textStyle="bold"
+                        android:textColor="#8B7CF6"
+                        android:textSize="15sp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:backgroundTint="@android:color/white"/>
+
+                    <!-- Reset Balance -->
+
+                    <Button
+                        android:id="@+id/btnResetBalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="Reset"
+                        android:textStyle="bold"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:layout_marginStart="24dp"
+                        android:backgroundTint="#673AB7"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Statistics Cards -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="25dp">
+
+                <!-- Monthly Expense -->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@android:color/white"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monthly Expense"
+                        android:textColor="#666666"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/tvExpense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹0"
+                        android:textColor="#F44336"
+                        android:textStyle="bold"
+                        android:textSize="30sp"
+                        android:layout_marginTop="20dp"/>
+
+                </LinearLayout>
+
+                <!-- Today's Expense -->
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="130dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:background="@android:color/white"
+                    android:padding="20dp"
+                    android:layout_marginStart="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Today's Expense"
+                        android:textColor="#666666"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:id="@+id/tvTransactions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="₹0"
+                        android:textColor="#000000"
+                        android:textStyle="bold"
+                        android:textSize="30sp"
+                        android:layout_marginTop="20dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Recent Expense Header -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="35dp">
+
+                <!-- Title -->
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Recent Expenses"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#000000"/>
+
+                <!-- Full History -->
+
+                <TextView
+                    android:id="@+id/tvFullHistory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="See All"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#8B7CF6"/>
+
+            </LinearLayout>
+
+            <!-- RecyclerView -->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerExpenses"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Floating Add Button -->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#7B61FF"
+        android:tint="@android:color/white"/>
+
+</RelativeLayout>
