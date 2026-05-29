@@ -385,7 +385,7 @@ public class HomeFragment extends Fragment {
                             builder.setTitle("Delete Expense");
 
                             builder.setMessage(
-                                    "Are you sure?"
+                                    "Are you sure you want to delete this expense?"
                             );
 
                             builder.setPositiveButton(

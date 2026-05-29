@@ -1,13 +1,14 @@
 package com.example.spendwise;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.database.Cursor;
 
 import java.util.ArrayList;
 
@@ -28,46 +29,35 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        // Initialize Views
-
         recyclerHistory =
                 findViewById(R.id.recyclerHistory);
 
         tvBack =
                 findViewById(R.id.tvBack);
 
-        // Database
+        DB =
+                new DBHelper(this);
 
-        DB = new DBHelper(this);
-
-        // ArrayList
-
-        list = new ArrayList<>();
-
-        // RecyclerView
+        list =
+                new ArrayList<>();
 
         recyclerHistory.setLayoutManager(
                 new LinearLayoutManager(this)
         );
 
-        // Load Data
-
         loadHistory();
 
-        // Back Button
-
         tvBack.setOnClickListener(v -> finish());
-
     }
 
-    // Load History
-
     private void loadHistory() {
+
+        list.clear();
 
         Cursor cursor =
                 DB.getExpenses();
 
-        while(cursor.moveToNext()) {
+        while (cursor.moveToNext()) {
 
             String title =
                     cursor.getString(1);
@@ -89,8 +79,9 @@ public class HistoryActivity extends AppCompatActivity {
                             date
                     )
             );
-
         }
+
+        cursor.close();
 
         adapter =
                 new ExpenseAdapter(
@@ -100,19 +91,50 @@ public class HistoryActivity extends AppCompatActivity {
                             ExpenseModel model =
                                     list.get(position);
 
-                            DB.deleteExpense(
-                                    model.getTitle(),
-                                    model.getAmount(),
-                                    model.getDate()
+                            AlertDialog.Builder builder =
+                                    new AlertDialog.Builder(
+                                            HistoryActivity.this
+                                    );
+
+                            builder.setTitle(
+                                    "Delete Expense"
                             );
 
-                            list.remove(position);
+                            builder.setMessage(
+                                    "Are you sure you want to delete this expense?"
+                            );
 
-                            adapter.notifyItemRemoved(position);
+                            builder.setPositiveButton(
+                                    "Delete",
+                                    (dialog, which) -> {
+
+                                        DB.deleteExpense(
+                                                model.getTitle(),
+                                                model.getAmount(),
+                                                model.getDate()
+                                        );
+
+                                        list.remove(position);
+
+                                        adapter.notifyItemRemoved(position);
+
+                                        Toast.makeText(
+                                                HistoryActivity.this,
+                                                "Expense Deleted",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+
+                                    });
+
+                            builder.setNegativeButton(
+                                    "Cancel",
+                                    null
+                            );
+
+                            builder.show();
 
                         });
 
         recyclerHistory.setAdapter(adapter);
-
     }
 }
