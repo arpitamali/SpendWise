@@ -23,6 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
@@ -314,6 +315,8 @@ public class HomeFragment extends Fragment {
 
         todayExpense = 0;
 
+        int monthlyExpense = 0;
+
         Cursor cursor =
                 DB.getExpenses();
 
@@ -322,6 +325,11 @@ public class HomeFragment extends Fragment {
 
         String todayDate =
                 sdf.format(new Date());
+
+        SimpleDateFormat monthFormat =
+                new SimpleDateFormat("M/yyyy");
+
+
 
         while(cursor.moveToNext()) {
 
@@ -344,19 +352,46 @@ public class HomeFragment extends Fragment {
 
             if(date.equals(todayDate)) {
 
-                todayExpense =
-                        todayExpense +
-                                expenseAmount;
+                todayExpense += expenseAmount;
+
+            }
+
+            // Monthly Expense
+
+            try {
+
+                String[] parts = date.split("/");
+
+                String expenseMonth = parts[1];
+
+                java.util.Calendar calendar =
+                        java.util.Calendar.getInstance();
+
+                String currentMonth =
+                        String.valueOf(
+                                calendar.get(
+                                        java.util.Calendar.MONTH
+                                ) + 1
+                        );
+
+                if(expenseMonth.equals(currentMonth)) {
+
+                    monthlyExpense += expenseAmount;
+
+                }
+
+            }
+            catch (Exception e) {
+
+                e.printStackTrace();
 
             }
 
             // Total Expense
 
-            totalExpense =
-                    totalExpense +
-                            expenseAmount;
+            totalExpense += expenseAmount;
 
-            // Add RecyclerView Item
+            // RecyclerView
 
             list.add(
                     new ExpenseModel(
@@ -368,7 +403,6 @@ public class HomeFragment extends Fragment {
             );
 
         }
-
         adapter =
                 new ExpenseAdapter(
                         list,
@@ -448,7 +482,7 @@ public class HomeFragment extends Fragment {
         // Dashboard Values
 
         tvExpense.setText(
-                "₹" + totalExpense
+                "₹" + monthlyExpense
         );
 
         tvBalance.setText(
