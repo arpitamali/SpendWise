@@ -50,6 +50,21 @@ public class WeeklyActivity extends AppCompatActivity {
         float sat = 0;
         float sun = 0;
 
+        Calendar today = Calendar.getInstance();
+
+        Calendar weekStart = (Calendar) today.clone();
+        weekStart.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        weekStart.set(Calendar.HOUR_OF_DAY, 0);
+        weekStart.set(Calendar.MINUTE, 0);
+        weekStart.set(Calendar.SECOND, 0);
+        weekStart.set(Calendar.MILLISECOND, 0);
+
+        Calendar weekEnd = (Calendar) weekStart.clone();
+        weekEnd.add(Calendar.DAY_OF_MONTH, 6);
+        weekEnd.set(Calendar.HOUR_OF_DAY, 23);
+        weekEnd.set(Calendar.MINUTE, 59);
+        weekEnd.set(Calendar.SECOND, 59);
+
         Cursor cursor = DB.getExpenses();
 
         while (cursor.moveToNext()) {
@@ -71,7 +86,8 @@ public class WeeklyActivity extends AppCompatActivity {
                 calendar.setTime(
                         sdf.parse(date)
                 );
-
+                    if(calendar.before(weekStart)||calendar.after(weekEnd)){
+                          continue; }
                 int dayOfWeek =
                         calendar.get(
                                 Calendar.DAY_OF_WEEK
