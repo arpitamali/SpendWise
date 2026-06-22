@@ -99,6 +99,27 @@ public class ExpenseAdapter
             holder.tvEmoji.setText("🎬");
 
         }
+        else if(category.contains("Education"))
+            holder.tvEmoji.setText("🎓");
+
+        else if(category.contains("Beauty"))
+            holder.tvEmoji.setText("💄");
+
+        else if(category.contains("Grocery"))
+            holder.tvEmoji.setText("🥦");
+
+        else if(category.contains("Fuel"))
+            holder.tvEmoji.setText("⛽");
+
+        else if(category.contains("Investment"))
+            holder.tvEmoji.setText("💰");
+
+        else if(category.contains("Luxury"))
+            holder.tvEmoji.setText("💎");
+
+        else if(category.contains("Household"))
+            holder.tvEmoji.setText("🏠");
+
         else {
 
             holder.tvEmoji.setText("📦");

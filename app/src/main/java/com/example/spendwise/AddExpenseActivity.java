@@ -24,11 +24,18 @@ public class AddExpenseActivity extends AppCompatActivity {
 
     String[] categories = {
             "Food 🍔",
+            "Grocery 🥦",
+            "Fuel ⛽",
             "Travel 🚗",
             "Shopping 🛍",
             "Bills 💡",
             "Health 🏥",
+            "Education 🎓",
+            "Beauty 💄",
+            " Investment 💰",
             "Entertainment 🎬",
+            "Luxury 💎",
+            "Household 🏠",
             "Other 📦"
     };
 
@@ -143,9 +150,11 @@ public class AddExpenseActivity extends AppCompatActivity {
                         etDate.getText().toString().trim();
 
                 // Validation
+                if(title.isEmpty()){
+                    title = category;
+                }
 
-                if(title.isEmpty()
-                        || amount.isEmpty()
+                if(amount.isEmpty()
                         || date.isEmpty()) {
 
                     Toast.makeText(

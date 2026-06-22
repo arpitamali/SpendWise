@@ -86,8 +86,51 @@ public class WeeklyActivity extends AppCompatActivity {
                 calendar.setTime(
                         sdf.parse(date)
                 );
-                    if(calendar.before(weekStart)||calendar.after(weekEnd)){
-                          continue; }
+                Calendar currentCal =
+                        Calendar.getInstance();
+
+                currentCal.setFirstDayOfWeek(
+                        Calendar.MONDAY
+                );
+
+                calendar.setFirstDayOfWeek(
+                        Calendar.MONDAY
+                );
+                Calendar expenseCal =
+                        (Calendar) calendar.clone();
+
+
+                int expenseWeek =
+                        expenseCal.get(
+                                Calendar.WEEK_OF_YEAR
+                        );
+
+                int currentWeek =
+                        currentCal.get(
+                                Calendar.WEEK_OF_YEAR
+                        );
+
+                if(expenseWeek != currentWeek) {
+                    continue;
+                }
+
+                int expenseYear =
+                        expenseCal.get(
+                                Calendar.YEAR
+                        );
+
+                int currentYear =
+                        currentCal.get(
+                                Calendar.YEAR
+                        );
+
+                if(expenseWeek != currentWeek
+                        || expenseYear != currentYear) {
+
+                    continue;
+
+                }
+
                 int dayOfWeek =
                         calendar.get(
                                 Calendar.DAY_OF_WEEK
