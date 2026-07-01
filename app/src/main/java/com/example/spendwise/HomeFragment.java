@@ -406,49 +406,88 @@ public class HomeFragment extends Fragment {
         adapter =
                 new ExpenseAdapter(
                         list,
-                        position -> {
+                        new ExpenseAdapter.OnExpenseActionListener() {
 
-                            ExpenseModel model =
-                                    list.get(position);
+                            @Override
+                            public void onEdit(int position) {
 
-                            android.app.AlertDialog.Builder builder =
-                                    new android.app.AlertDialog.Builder(
-                                            requireContext()
-                                    );
+                                ExpenseModel model = list.get(position);
 
-                            builder.setTitle("Delete Expense");
-
-                            builder.setMessage(
-                                    "Are you sure you want to delete this expense?"
-                            );
-
-                            builder.setPositiveButton(
-                                    "Delete",
-                                    (dialog, which) -> {
-
-                                        DB.deleteExpense(
-                                                model.getTitle(),
-                                                model.getAmount(),
-                                                model.getDate()
+                                Intent intent =
+                                        new Intent(
+                                                requireContext(),
+                                                AddExpenseActivity.class
                                         );
 
-                                        Toast.makeText(
-                                                requireContext(),
-                                                "Expense Deleted",
-                                                Toast.LENGTH_SHORT
-                                        ).show();
+                                intent.putExtra("isEdit", true);
 
-                                        loadExpenses();
+                                intent.putExtra(
+                                        "title",
+                                        model.getTitle()
+                                );
 
-                                    });
+                                intent.putExtra(
+                                        "amount",
+                                        model.getAmount()
+                                );
 
-                            builder.setNegativeButton(
-                                    "Cancel",
-                                    null
-                            );
+                                intent.putExtra(
+                                        "category",
+                                        model.getCategory()
+                                );
 
-                            builder.show();
+                                intent.putExtra(
+                                        "date",
+                                        model.getDate()
+                                );
 
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onDelete(int position) {
+
+                                ExpenseModel model =
+                                        list.get(position);
+
+                                android.app.AlertDialog.Builder builder =
+                                        new android.app.AlertDialog.Builder(
+                                                requireContext()
+                                        );
+
+                                builder.setTitle("Delete Expense");
+
+                                builder.setMessage(
+                                        "Are you sure you want to delete this expense?"
+                                );
+
+                                builder.setPositiveButton(
+                                        "Delete",
+                                        (dialog, which) -> {
+
+                                            DB.deleteExpense(
+                                                    model.getTitle(),
+                                                    model.getAmount(),
+                                                    model.getDate()
+                                            );
+
+                                            Toast.makeText(
+                                                    requireContext(),
+                                                    "Expense Deleted",
+                                                    Toast.LENGTH_SHORT
+                                            ).show();
+
+                                            loadExpenses();
+
+                                        });
+
+                                builder.setNegativeButton(
+                                        "Cancel",
+                                        null
+                                );
+
+                                builder.show();
+                            }
                         });
 
         recyclerExpenses.setAdapter(adapter);

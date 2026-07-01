@@ -1,5 +1,6 @@
 package com.example.spendwise;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -83,57 +84,86 @@ public class HistoryActivity extends AppCompatActivity {
 
         cursor.close();
 
-        adapter =
-                new ExpenseAdapter(
-                        list,
-                        position -> {
+        adapter = new ExpenseAdapter(
+                list,
+                new ExpenseAdapter.OnExpenseActionListener() {
 
-                            ExpenseModel model =
-                                    list.get(position);
+                    @Override
+                    public void onEdit(int position) {
+                        ExpenseModel model = list.get(position);
 
-                            AlertDialog.Builder builder =
-                                    new AlertDialog.Builder(
-                                            HistoryActivity.this
-                                    );
+                        Intent intent =
+                                new Intent(
+                                        HistoryActivity.this,
+                                        AddExpenseActivity.class
+                                );
 
-                            builder.setTitle(
-                                    "Delete Expense"
+                        intent.putExtra("isEdit", true);
+
+                        intent.putExtra(
+                                "title",
+                                model.getTitle()
+                        );
+
+                        intent.putExtra(
+                                "amount",
+                                model.getAmount()
+                        );
+
+                        intent.putExtra(
+                                "category",
+                                model.getCategory()
+                        );
+
+                        intent.putExtra(
+                                "date",
+                                model.getDate()
+                        );
+
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onDelete(int position) {
+
+                        ExpenseModel model = list.get(position);
+
+                        AlertDialog.Builder builder =
+                                new AlertDialog.Builder(
+                                        HistoryActivity.this
+                                );
+
+                        builder.setTitle("Delete Expense");
+
+                        builder.setMessage(
+                                "Are you sure you want to delete this expense?"
+                        );
+
+                        builder.setPositiveButton("Delete", (dialog, which) -> {
+
+                            DB.deleteExpense(
+                                    model.getTitle(),
+                                    model.getAmount(),
+                                    model.getDate()
                             );
 
-                            builder.setMessage(
-                                    "Are you sure you want to delete this expense?"
-                            );
+                            list.remove(position);
 
-                            builder.setPositiveButton(
-                                    "Delete",
-                                    (dialog, which) -> {
+                            adapter.notifyItemRemoved(position);
 
-                                        DB.deleteExpense(
-                                                model.getTitle(),
-                                                model.getAmount(),
-                                                model.getDate()
-                                        );
-
-                                        list.remove(position);
-
-                                        adapter.notifyItemRemoved(position);
-
-                                        Toast.makeText(
-                                                HistoryActivity.this,
-                                                "Expense Deleted",
-                                                Toast.LENGTH_SHORT
-                                        ).show();
-
-                                    });
-
-                            builder.setNegativeButton(
-                                    "Cancel",
-                                    null
-                            );
-
-                            builder.show();
-
+                            Toast.makeText(
+                                    HistoryActivity.this,
+                                    "Expense Deleted",
+                                    Toast.LENGTH_SHORT
+                            ).show();
                         });
+
+                        builder.setNegativeButton("Cancel", null);
+
+                        builder.show();
+                    }
+                }
+        );
 
         recyclerHistory.setAdapter(adapter);
     }

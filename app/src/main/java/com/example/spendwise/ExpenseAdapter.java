@@ -3,6 +3,8 @@ package com.example.spendwise;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,21 +16,17 @@ public class ExpenseAdapter
         extends RecyclerView.Adapter<ExpenseAdapter.ViewHolder> {
 
     ArrayList<ExpenseModel> list;
-    OnItemLongClickListener listener;
+    private OnExpenseActionListener listener;
 
     public ExpenseAdapter(ArrayList<ExpenseModel> list,
-                          OnItemLongClickListener listener) {
-
+                          OnExpenseActionListener listener) {
         this.list = list;
-
         this.listener = listener;
     }
-    public interface OnItemLongClickListener {
-
-        void onLongClick(int position);
-
+    public interface OnExpenseActionListener {
+        void onEdit(int position);
+        void onDelete(int position);
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(
@@ -125,12 +123,30 @@ public class ExpenseAdapter
             holder.tvEmoji.setText("📦");
 
         }
-        holder.itemView.setOnLongClickListener(v -> {
+        holder.btnMore.setOnClickListener(v -> {
 
-            listener.onLongClick(position);
+            PopupMenu popupMenu =
+                    new PopupMenu(v.getContext(), holder.btnMore);
 
-            return true;
+            popupMenu.getMenu().add("📝 Edit Expense");
+            popupMenu.getMenu().add("🗑 Delete Expense");
 
+            popupMenu.setOnMenuItemClickListener(item -> {
+
+                if(item.getTitle().equals("📝 Edit Expense")) {
+
+                    listener.onEdit(position);
+
+                } else {
+
+                    listener.onDelete(position);
+
+                }
+
+                return true;
+            });
+
+            popupMenu.show();
         });
 
     }
@@ -149,6 +165,7 @@ public class ExpenseAdapter
                 tvAmount,
                 tvDate,
                 tvEmoji;
+        ImageButton btnMore;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -164,6 +181,10 @@ public class ExpenseAdapter
 
             tvEmoji =
                     itemView.findViewById(R.id.tvEmoji);
+
+            btnMore =
+                    itemView.findViewById(R.id.btnMore);
+
+            }
         }
-    }
 }

@@ -58,4 +58,16 @@
         android:textStyle="bold"
         android:textSize="20sp"/>
 
+    <ImageButton
+        android:id="@+id/btnMore"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@drawable/baseline_more_vert_24"
+        android:tint="#616161"
+        android:scaleType="centerInside"/>
 </LinearLayout>

@@ -21,6 +21,11 @@ public class AddExpenseActivity extends AppCompatActivity {
     Button btnSaveExpense;
 
     DBHelper DB;
+    boolean isEdit = false;
+
+    String oldTitle;
+    String oldAmount;
+    String oldDate;
 
     String[] categories = {
             "Food 🍔",
@@ -32,7 +37,7 @@ public class AddExpenseActivity extends AppCompatActivity {
             "Health 🏥",
             "Education 🎓",
             "Beauty 💄",
-            " Investment 💰",
+            "Investment 💰",
             "Entertainment 🎬",
             "Luxury 💎",
             "Household 🏠",
@@ -69,6 +74,50 @@ public class AddExpenseActivity extends AppCompatActivity {
                 );
 
         spCategory.setAdapter(adapter);
+
+        // Edit Mode
+
+        Intent intent = getIntent();
+
+        isEdit = intent.getBooleanExtra(
+                "isEdit",
+                false
+        );
+
+        if (isEdit) {
+
+            btnSaveExpense.setText(
+                    "Update Expense"
+            );
+
+            oldTitle =
+                    intent.getStringExtra("title");
+
+            oldAmount =
+                    intent.getStringExtra("amount");
+
+            oldDate =
+                    intent.getStringExtra("date");
+
+            String oldCategory =
+                    intent.getStringExtra("category");
+
+            etTitle.setText(oldTitle);
+
+            etAmount.setText(oldAmount);
+
+            etDate.setText(oldDate);
+
+            for(int i = 0; i < categories.length; i++){
+
+                if(categories[i].equals(oldCategory)){
+
+                    spCategory.setSelection(i);
+
+                    break;
+                }
+            }
+        }
 
         // Today's Date Auto
 
@@ -166,19 +215,39 @@ public class AddExpenseActivity extends AppCompatActivity {
                 }
                 else {
 
-                    Boolean insertExpense =
-                            DB.insertExpense(
-                                    title,
-                                    amount,
-                                    category,
-                                    date
-                            );
+                    Boolean success;
 
-                    if(insertExpense == true) {
+                    if(isEdit){
+
+                        success =
+                                DB.updateExpense(
+                                        oldTitle,
+                                        oldAmount,
+                                        oldDate,
+                                        title,
+                                        amount,
+                                        category,
+                                        date
+                                );
+
+                    }else{
+
+                        success =
+                                DB.insertExpense(
+                                        title,
+                                        amount,
+                                        category,
+                                        date
+                                );
+                    }
+
+                    if(success) {
 
                         Toast.makeText(
                                 AddExpenseActivity.this,
-                                "Expense Saved Successfully",
+                                isEdit
+                                        ? "Expense Updated Successfully"
+                                        : "Expense Saved Successfully",
                                 Toast.LENGTH_SHORT
                         ).show();
 

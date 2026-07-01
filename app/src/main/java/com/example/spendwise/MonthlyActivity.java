@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,7 +21,8 @@ public class MonthlyActivity extends AppCompatActivity {
 
     LineChart lineChart;
 
-    TextView tvHighestMonth,
+    TextView tvCurrentMonthExpense,
+            tvHighestMonth,
             tvTotalExpense;
 
     DBHelper DB;
@@ -32,6 +34,9 @@ public class MonthlyActivity extends AppCompatActivity {
 
         lineChart =
                 findViewById(R.id.lineChart);
+
+        tvCurrentMonthExpense =
+                findViewById(R.id.tvCurrentMonthExpense);
 
         tvHighestMonth =
                 findViewById(R.id.tvHighestMonth);
@@ -51,6 +56,13 @@ public class MonthlyActivity extends AppCompatActivity {
                 new float[12];
 
         float totalExpense = 0;
+        float currentMonthExpense = 0;
+
+
+
+        int currentMonth =
+                java.util.Calendar.getInstance()
+                        .get(java.util.Calendar.MONTH);
 
         Cursor cursor =
                 DB.getExpenses();
@@ -78,6 +90,12 @@ public class MonthlyActivity extends AppCompatActivity {
                         );
 
                 months[month - 1] += amount;
+
+                if(month - 1 == currentMonth){
+
+                    currentMonthExpense += amount;
+
+                }
 
             }
             catch (Exception e) {
@@ -177,6 +195,11 @@ public class MonthlyActivity extends AppCompatActivity {
 
             }
         }
+        tvCurrentMonthExpense.setText(
+                monthNames[currentMonth]
+                        + " - ₹"
+                        + (int) currentMonthExpense
+        );
 
         tvHighestMonth.setText(
                 monthNames[maxIndex]

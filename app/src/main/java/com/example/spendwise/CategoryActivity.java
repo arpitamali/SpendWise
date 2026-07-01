@@ -56,7 +56,7 @@ public class CategoryActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
 
             String category =
-                    cursor.getString(3);
+                    cursor.getString(3).trim();
 
             float amount =
                     Float.parseFloat(
@@ -110,7 +110,7 @@ public class CategoryActivity extends AppCompatActivity {
                 beauty += amount;
 
             }
-            else if(category.contains("Savings")) {
+            else if(category.contains("Investment")) {
 
                 investment += amount;
 
@@ -142,6 +142,14 @@ public class CategoryActivity extends AppCompatActivity {
 
         ArrayList<PieEntry> entries =
                 new ArrayList<>();
+
+        if(food > 0)
+            entries.add(
+                    new PieEntry(
+                            food,
+                            "Food ₹" + (int) food
+                    )
+            );
 
         if(grocery > 0)
             entries.add(

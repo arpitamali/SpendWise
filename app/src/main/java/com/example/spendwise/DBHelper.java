@@ -167,6 +167,36 @@ public class DBHelper extends SQLiteOpenHelper {
         return result != -1;
 
     }
+    public Boolean updateExpense(
+            String oldTitle,
+            String oldAmount,
+            String oldDate,
+            String newTitle,
+            String newAmount,
+            String newCategory,
+            String newDate) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put("title", newTitle);
+        values.put("amount", newAmount);
+        values.put("category", newCategory);
+        values.put("date", newDate);
+
+        int result = db.update(
+                "expenses",
+                values,
+                "title=? AND amount=? AND date=?",
+                new String[]{
+                        oldTitle,
+                        oldAmount,
+                        oldDate
+                });
+
+        return result > 0;
+    }
 
     // ==========================
     // GET ALL EXPENSES
