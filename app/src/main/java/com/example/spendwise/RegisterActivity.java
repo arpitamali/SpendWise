@@ -7,6 +7,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,10 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etName, etEmail, etPassword;
     Button btnRegister;
 
+    TextView tvLogin;
+
     DBHelper DB;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +31,21 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnRegister = findViewById(R.id.btnRegister);
+        tvLogin = findViewById(R.id.tvLogin);
 
         DB = new DBHelper(this);
+
+        // Open Register Page
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+
+                startActivity(intent);
+
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override

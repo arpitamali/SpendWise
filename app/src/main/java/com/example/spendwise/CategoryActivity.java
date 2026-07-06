@@ -144,116 +144,46 @@ public class CategoryActivity extends AppCompatActivity {
                 new ArrayList<>();
 
         if(food > 0)
-            entries.add(
-                    new PieEntry(
-                            food,
-                            "Food ₹" + (int) food
-                    )
-            );
+            entries.add(new PieEntry(food, "Food"));
 
         if(grocery > 0)
-            entries.add(
-                    new PieEntry(
-                            grocery,
-                            "Grocery ₹" + (int) grocery
-                    )
-            );
+            entries.add(new PieEntry(grocery, "Grocery"));
 
         if(fuel > 0)
-            entries.add(
-                    new PieEntry(
-                            fuel,
-                            "Fuel ₹" + (int) fuel
-                    )
-            );
+            entries.add(new PieEntry(fuel, "Fuel"));
 
         if(travel > 0)
-            entries.add(
-                    new PieEntry(
-                            travel,
-                            "Travel ₹" + (int) travel
-                    )
-            );
+            entries.add(new PieEntry(travel, "Travel"));
 
         if(shopping > 0)
-            entries.add(
-                    new PieEntry(
-                            shopping,
-                            "Shopping ₹" + (int) shopping
-                    )
-            );
+            entries.add(new PieEntry(shopping, "Shopping"));
 
         if(bills > 0)
-            entries.add(
-                    new PieEntry(
-                            bills,
-                            "Bills ₹" + (int) bills
-                    )
-            );
+            entries.add(new PieEntry(bills, "Bills"));
 
         if(health > 0)
-            entries.add(
-                    new PieEntry(
-                            health,
-                            "Health ₹" + (int) health
-                    )
-            );
+            entries.add(new PieEntry(health, "Health"));
 
         if(education > 0)
-            entries.add(
-                    new PieEntry(
-                            education,
-                            "Education ₹" + (int) education
-                    )
-            );
+            entries.add(new PieEntry(education, "Education"));
 
         if(beauty > 0)
-            entries.add(
-                    new PieEntry(
-                            beauty,
-                            "Beauty ₹" + (int) beauty
-                    )
-            );
+            entries.add(new PieEntry(beauty, "Beauty"));
 
         if(investment > 0)
-            entries.add(
-                    new PieEntry(
-                            investment,
-                            "Investment ₹" + (int) investment
-                    )
-            );
+            entries.add(new PieEntry(investment, "Investment"));
 
         if(entertainment > 0)
-            entries.add(
-                    new PieEntry(
-                            entertainment,
-                            "Entertainment ₹" + (int) entertainment
-                    )
-            );
+            entries.add(new PieEntry(entertainment, "Entertainment"));
 
         if(luxury > 0)
-            entries.add(
-                    new PieEntry(
-                            luxury,
-                            "Luxury ₹" + (int) luxury
-                    )
-            );
+            entries.add(new PieEntry(luxury, "Luxury"));
 
         if(household > 0)
-            entries.add(
-                    new PieEntry(
-                            household,
-                            "Household ₹" + (int) household
-                    )
-            );
+            entries.add(new PieEntry(household, "Household"));
 
         if(other > 0)
-            entries.add(
-                    new PieEntry(
-                            other,
-                            "Other ₹" + (int) other
-                    )
-            );
+            entries.add(new PieEntry(other, "Other"));
 
         PieDataSet dataSet =
                 new PieDataSet(

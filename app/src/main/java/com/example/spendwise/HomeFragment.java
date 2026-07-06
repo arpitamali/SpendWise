@@ -16,6 +16,7 @@ import android.view.Window;
 
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,8 @@ public class HomeFragment extends Fragment {
     FloatingActionButton fabAdd;
 
     RecyclerView recyclerExpenses;
+
+    LinearLayout layoutEmpty;
 
     TextView tvBalance,
             tvExpense,
@@ -70,6 +73,7 @@ public class HomeFragment extends Fragment {
                 );
 
         // Initialize Views
+        layoutEmpty = view.findViewById(R.id.layoutEmpty);
 
         btnAddBalance =
                 view.findViewById(R.id.btnAddBalance);
@@ -491,6 +495,19 @@ public class HomeFragment extends Fragment {
                         });
 
         recyclerExpenses.setAdapter(adapter);
+
+        if(list.isEmpty()){
+
+            recyclerExpenses.setVisibility(View.GONE);
+            layoutEmpty.setVisibility(View.VISIBLE);
+
+        }
+        else{
+
+            recyclerExpenses.setVisibility(View.VISIBLE);
+            layoutEmpty.setVisibility(View.GONE);
+
+        }
 
         // Get Current Balance
 

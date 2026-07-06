@@ -145,6 +145,8 @@ public class MonthlyActivity extends AppCompatActivity {
 
         lineChart.setData(data);
 
+        lineChart.getLegend().setEnabled(false);
+
         lineChart.getDescription()
                 .setEnabled(false);
 

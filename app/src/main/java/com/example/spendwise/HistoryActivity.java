@@ -3,6 +3,8 @@ package com.example.spendwise;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
+
+    LinearLayout layoutEmpty;
 
     RecyclerView recyclerHistory;
 
@@ -29,6 +33,8 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
+        layoutEmpty = findViewById(R.id.layoutEmpty);
 
         recyclerHistory =
                 findViewById(R.id.recyclerHistory);
@@ -166,5 +172,17 @@ public class HistoryActivity extends AppCompatActivity {
         );
 
         recyclerHistory.setAdapter(adapter);
+
+        if(list.isEmpty()){
+
+            recyclerHistory.setVisibility(View.GONE);
+            layoutEmpty.setVisibility(View.VISIBLE);
+
+        }else{
+
+            recyclerHistory.setVisibility(View.VISIBLE);
+            layoutEmpty.setVisibility(View.GONE);
+
+        }
     }
 }

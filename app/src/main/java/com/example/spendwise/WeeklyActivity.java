@@ -204,6 +204,8 @@ public class WeeklyActivity extends AppCompatActivity {
 
         barChart.setData(data);
 
+        barChart.getLegend().setEnabled(false);
+
         barChart.getDescription()
                 .setEnabled(false);
 

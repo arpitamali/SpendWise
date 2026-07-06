@@ -80,34 +80,44 @@ public class ProfileFragment extends Fragment {
 
         // Logout
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnLogout.setOnClickListener(v -> {
 
-                SharedPreferences.Editor editor =
-                        sharedPreferences.edit();
+            new androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setIcon(android.R.drawable.ic_lock_power_off)
 
-                editor.clear();
+                    .setPositiveButton("Logout", (dialog, which) -> {
 
-                editor.apply();
+                        SharedPreferences preferences =
+                                requireActivity().getSharedPreferences(
+                                        "UserData",
+                                        requireActivity().MODE_PRIVATE
+                                );
 
-                Toast.makeText(
-                        requireContext(),
-                        "Logged Out",
-                        Toast.LENGTH_SHORT
-                ).show();
+                        preferences.edit()
+                                .putBoolean("isLoggedIn", false)
+                                .apply();
 
-                Intent intent =
-                        new Intent(
-                                requireContext(),
-                                LoginActivity.class
+                        Intent intent =
+                                new Intent(
+                                        requireContext(),
+                                        LoginActivity.class
+                                );
+
+                        intent.setFlags(
+                                Intent.FLAG_ACTIVITY_NEW_TASK |
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK
                         );
 
-                startActivity(intent);
+                        startActivity(intent);
 
-                requireActivity().finish();
+                    })
 
-            }
+                    .setNegativeButton("Cancel", null)
+
+                    .show();
+
         });
 
         // Reset Expenses
