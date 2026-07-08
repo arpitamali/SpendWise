@@ -1,10 +1,15 @@
 package com.example.spendwise;
 
+import static java.util.Locale.filter;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +27,10 @@ public class HistoryActivity extends AppCompatActivity {
     RecyclerView recyclerHistory;
 
     TextView tvBack;
+
+    ImageButton btnSort;
+
+    SearchView searchView;
 
     DBHelper DB;
 
@@ -42,6 +51,10 @@ public class HistoryActivity extends AppCompatActivity {
         tvBack =
                 findViewById(R.id.tvBack);
 
+        btnSort = findViewById(R.id.btnSort);
+
+        searchView = findViewById(R.id.searchView);
+
         DB =
                 new DBHelper(this);
 
@@ -53,6 +66,59 @@ public class HistoryActivity extends AppCompatActivity {
         );
 
         loadHistory();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                adapter.getFilter().filter(query);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                adapter.getFilter().filter(newText);
+
+                return true;
+            }
+        });
+
+        btnSort.setOnClickListener(v -> {
+
+            PopupMenu popupMenu =
+                    new PopupMenu(
+                            HistoryActivity.this,
+                            btnSort
+                    );
+
+            popupMenu.getMenu().add("📅 Today");
+
+            popupMenu.getMenu().add("🕒 Yesterday");
+
+            popupMenu.getMenu().add("Current Month");
+
+            popupMenu.getMenu().add("Previous Month");
+
+            popupMenu.getMenu().add("----------------");
+
+            popupMenu.getMenu().add("January");
+            popupMenu.getMenu().add("February");
+            popupMenu.getMenu().add("March");
+            popupMenu.getMenu().add("April");
+            popupMenu.getMenu().add("May");
+            popupMenu.getMenu().add("June");
+            popupMenu.getMenu().add("July");
+            popupMenu.getMenu().add("August");
+            popupMenu.getMenu().add("September");
+            popupMenu.getMenu().add("October");
+            popupMenu.getMenu().add("November");
+            popupMenu.getMenu().add("December");
+
+            popupMenu.show();
+
+        });
 
         tvBack.setOnClickListener(v -> finish());
     }
@@ -170,6 +236,7 @@ public class HistoryActivity extends AppCompatActivity {
                     }
                 }
         );
+        adapter.notifyDataSetChanged();
 
         recyclerHistory.setAdapter(adapter);
 
@@ -185,4 +252,5 @@ public class HistoryActivity extends AppCompatActivity {
 
         }
     }
+
 }
