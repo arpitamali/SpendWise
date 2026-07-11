@@ -1,6 +1,7 @@
 package com.example.spendwise;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -16,6 +17,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -86,8 +88,8 @@ public class ExpenseReminderReceiver extends BroadcastReceiver {
             message = "Is that all you spent today?";
 
             bigMessage =
-                    "You've already recorded today's expenses.\n\n"
-                            + "Is that all you spent today?\n\n"
+                    "You've already recorded today's expenses.\n"
+                            + "Is that all you spent today?\n"
                             + "Tap here if you have more expenses to add.";
 
         } else {
@@ -97,7 +99,7 @@ public class ExpenseReminderReceiver extends BroadcastReceiver {
             message = "Don't forget to record today's expenses.";
 
             bigMessage =
-                    "Don't forget to record today's expenses.\n\n"
+                    "Don't forget to record today's expenses.\n"
                             + "Tap to open SpendWise and save your expense.";
         }
 
@@ -127,8 +129,48 @@ public class ExpenseReminderReceiver extends BroadcastReceiver {
                 return;
             }
         }
-
         NotificationManagerCompat.from(context)
                 .notify(101, builder.build());
+
+        AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Intent reminderIntent =
+                new Intent(context, ExpenseReminderReceiver.class);
+
+        PendingIntent reminderPendingIntent =
+                PendingIntent.getBroadcast(
+                        context,
+                        100,
+                        reminderIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                                | PendingIntent.FLAG_IMMUTABLE
+                );
+
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 21);
+        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    reminderPendingIntent
+            );
+
+        } else {
+
+            alarmManager.setExact(
+                    AlarmManager.RTC_WAKEUP,
+                    calendar.getTimeInMillis(),
+                    reminderPendingIntent
+            );
+        }
     }
 }
