@@ -49,7 +49,10 @@
 
             <!-- Balance Card -->
 
+            <!-- Balance Card -->
+
             <LinearLayout
+                android:id="@+id/cardBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -57,14 +60,33 @@
                 android:padding="25dp"
                 android:layout_marginTop="30dp">
 
-                <!-- Balance Label -->
+                <!-- Balance Label Row (Label + Close Button) -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Available Balance"
-                    android:textColor="@android:color/white"
-                    android:textSize="17sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Available Balance"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp"
+                        android:layout_centerVertical="true"/>
+
+                    <!-- Close Button -->
+
+                    <ImageButton
+                        android:id="@+id/btnCloseBalance"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_close"
+                        app:tint="@android:color/white"
+                        android:contentDescription="Close balance card"/>
+
+                </RelativeLayout>
 
                 <!-- Balance Amount -->
 
@@ -92,7 +114,7 @@
                         android:id="@+id/btnAddBalance"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
-                        android:text="＋ Add"
+                        android:text="+ Add"
                         android:textStyle="bold"
                         android:textColor="#8B7CF6"
                         android:textSize="15sp"
@@ -117,8 +139,38 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Statistics Cards -->
+            <!-- 👇 Show Balance Card strip — आता cardBalance च्या BAHER, sibling म्हणून -->
+            <LinearLayout
+                android:id="@+id/layoutShowBalance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#F0EEFF"
+                android:padding="14dp"
+                android:layout_marginTop="30dp"
+                android:visibility="gone">
 
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Balance tracking is hidden"
+                    android:textColor="#673AB7"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tvShowBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show"
+                    android:textColor="#673AB7"
+                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    android:padding="6dp"/>
+
+            </LinearLayout>
+            <!-- Statistics Cards -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

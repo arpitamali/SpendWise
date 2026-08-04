@@ -243,6 +243,26 @@ public class AddExpenseActivity extends AppCompatActivity {
 
                     if(success) {
 
+                        int newAmount = Integer.parseInt(amount);
+
+                        if (isEdit) {
+
+                            // Edit मध्ये: जुनी रक्कम आधी balance ला परत द्या,
+                            // मग नवीन रक्कम वजा करा (amount बदलला असेल तरी बरोबर राहील)
+
+                            int previousAmount = Integer.parseInt(oldAmount);
+
+                            DB.addToBalance(previousAmount);
+                            DB.subtractFromBalance(newAmount);
+
+                        } else {
+
+                            // नवीन Expense: थेट balance मधून वजा करा
+
+                            DB.subtractFromBalance(newAmount);
+
+                        }
+
                         Toast.makeText(
                                 AddExpenseActivity.this,
                                 isEdit
