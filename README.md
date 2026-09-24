@@ -1,18 +1,16 @@
-#SpendWise
+SpendWise
+Expense Tracker Android Application
 
-Expense Tracker Android App with Analytics
+Features
+• Expense Management
+• Available Balance
+• Category-wise Expenses
+• Expense History
+• Analytics
+• Date-wise Tracking
 
-Features:  
-
-✅ Login & Register  
-✅ Expense Tracking  
-✅ Category Analysis  
-✅ Weekly Analysis   
-✅ Monthly Analysis   
-✅ SQLite Database   
-✅ Material UI   
-
-Tech Stack:
-- Java
-- Android Studio
-- SQLite
+Technologies
+• Java
+• Android Studio
+• SQLite
+• XML
