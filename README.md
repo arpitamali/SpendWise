@@ -25,3 +25,20 @@ Expense Tracker Android Application
 • SQLite
 
 • XML
+
+📱 Screenshots
+
+### 🔐 Login
+![Login](screenshots/login.png)
+
+### 📝 Register
+![Register](screenshots/register.png)
+
+### 🏠 Home Dashboard
+![Home](screenshots/home (1).png)
+
+### 📊 Analytics
+![Analytics](screenshots/analytics.png)
+
+### 👤 Profile
+![Profile](screenshots/profile.png)
