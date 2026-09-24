@@ -35,7 +35,7 @@ Expense Tracker Android Application
 ![Register](screenshots/register.png)
 
 ### 🏠 Home Dashboard
-![Home](screenshots/home(1).png)
+![Home](screenshots/home%20(1).png)
 
 ### 📊 Analytics
 ![Analytics](screenshots/analytics.png)
